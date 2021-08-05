@@ -1,3 +1,4 @@
+import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
@@ -6,9 +7,9 @@ class TaskFormWidget extends StatelessWidget {
   final String? description;
   final DateTime? time;
 
-  final ValueChanged<DateTime> onChangedTime;
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
+  final ValueChanged<DateTime> onChangedTime;
 
   const TaskFormWidget({
     Key? key,

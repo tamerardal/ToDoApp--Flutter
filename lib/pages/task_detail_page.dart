@@ -37,38 +37,52 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          actions: [deleteButton()],
-        ),
-        body: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : Padding(
-                padding: EdgeInsets.all(12),
-                child: ListView(
-                  padding: EdgeInsets.symmetric(vertical: 8),
-                  children: [
-                    Text(
-                      task.title,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      DateFormat.yMMMd().format(task.deliveryTime),
-                      style: TextStyle(color: Colors.white38),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      task.description,
-                      style: TextStyle(color: Colors.white70, fontSize: 18),
-                    )
-                  ],
-                ),
+      appBar: AppBar(
+        title: Text(task.title),
+        actions: [deleteButton(), completedButton()],
+      ),
+      body: task.done
+          ? Padding(
+              padding: EdgeInsets.all(12),
+              child: ListView(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                children: [
+                  Text(
+                    DateFormat.yMMMd().format(task.deliveryTime),
+                    style: TextStyle(color: Colors.black38),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    task.description,
+                    style: TextStyle(color: Colors.black87, fontSize: 24),
+                  )
+                ],
               ),
-      );
+            )
+          : Padding(
+              padding: EdgeInsets.all(12),
+              child: ListView(
+                padding: EdgeInsets.symmetric(vertical: 8),
+                children: [
+                  Text(
+                    DateFormat.yMMMd().format(task.deliveryTime),
+                    style: TextStyle(
+                      color: Colors.black38,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    task.description,
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 24,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  )
+                ],
+              ),
+            ));
 
   Widget deleteButton() => IconButton(
         icon: Icon(Icons.delete),
@@ -78,4 +92,10 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           Navigator.of(context).pop();
         },
       );
+
+  Widget completedButton() => IconButton(
+      onPressed: () async {},
+      icon: Icon(
+        Icons.check_circle_outline,
+      ));
 }
