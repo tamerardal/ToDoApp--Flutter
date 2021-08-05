@@ -1,4 +1,3 @@
-import 'dart:js';
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
@@ -74,7 +73,7 @@ class TaskFormWidget extends StatelessWidget {
         onChanged: onChangedDescription,
       );
 
-  Widget buildTime(BuildContext context) => OutlineButton(
+  Widget buildTime(BuildContext context) => OutlinedButton(
         onPressed: () {
           DatePicker.showDateTimePicker(context,
               showTitleActions: true,

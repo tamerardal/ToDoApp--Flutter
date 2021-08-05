@@ -40,6 +40,40 @@ class TaskCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     time,
+                    style: TextStyle(color: Colors.grey.shade700),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    task.title,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    task.description,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        : Card(
+            color: color,
+            child: Container(
+              constraints: BoxConstraints(minHeight: minHeight),
+              padding: EdgeInsets.all(8),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    time,
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       decoration: TextDecoration.lineThrough,
@@ -62,40 +96,6 @@ class TaskCardWidget extends StatelessWidget {
                       color: Colors.black,
                       fontSize: 16,
                       decoration: TextDecoration.lineThrough,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          )
-        : Card(
-            color: color,
-            child: Container(
-              constraints: BoxConstraints(minHeight: minHeight),
-              padding: EdgeInsets.all(8),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    time,
-                    style: TextStyle(color: Colors.grey.shade700),
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    task.title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    task.description,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
                     ),
                   ),
                 ],
