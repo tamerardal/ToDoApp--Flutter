@@ -51,7 +51,7 @@ class _TasksPageState extends State<TasksPage> {
               ? CircularProgressIndicator()
               : tasks.isEmpty
                   ? Text(
-                      'Hiç işiniz yok!',
+                      'Burada hiçbir şey yok!',
                       style: TextStyle(color: Colors.black, fontSize: 24),
                     )
                   : buildNotes(),
@@ -73,8 +73,8 @@ class _TasksPageState extends State<TasksPage> {
         itemCount: tasks.length,
         staggeredTileBuilder: (index) => StaggeredTile.fit(2),
         crossAxisCount: 4,
-        mainAxisSpacing: 1,
-        crossAxisSpacing: 1,
+        mainAxisSpacing: 0.1,
+        crossAxisSpacing: 0.1,
         itemBuilder: (context, index) {
           final task = tasks[index];
           return GestureDetector(

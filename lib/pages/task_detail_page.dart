@@ -94,7 +94,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
       );
 
   Widget completedButton() => IconButton(
-      onPressed: () async {},
+      onPressed: () async {
+        
+      },
       icon: Icon(
         Icons.check_circle_outline,
       ));

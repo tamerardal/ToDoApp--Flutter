@@ -53,7 +53,7 @@ class TaskFormWidget extends StatelessWidget {
           hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 16),
         ),
         validator: (title) =>
-            title != null && title.isEmpty ? 'The title cannot be empty' : null,
+            title != null && title.isEmpty ? 'Başlık boş geçilemez' : null,
         onChanged: onChangedTitle,
       );
 
@@ -67,9 +67,8 @@ class TaskFormWidget extends StatelessWidget {
           hintText: 'örn. Süt, mısır gevreği..',
           hintStyle: TextStyle(color: Colors.grey.shade600),
         ),
-        validator: (title) => title != null && title.isEmpty
-            ? 'The description cannot be empty'
-            : null,
+        validator: (title) =>
+            title != null && title.isEmpty ? 'Açıklama boş geçilemez' : null,
         onChanged: onChangedDescription,
       );
 
