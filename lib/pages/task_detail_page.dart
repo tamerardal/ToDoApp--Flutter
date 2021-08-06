@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_application/db/tasks_database.dart';
 import 'package:todo_application/model/task.dart';
+import 'package:todo_application/pages/edit_task_page.dart';
 
 class TaskDetailPage extends StatefulWidget {
   final int taskId;
@@ -39,7 +40,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: Text(task.title),
-        actions: [deleteButton(), completedButton()],
+        actions: [editButton(), deleteButton(), completedButton()],
       ),
       body: task.done
           ? Padding(
@@ -94,10 +95,19 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
       );
 
   Widget completedButton() => IconButton(
-      onPressed: () async {
-        
-      },
+      onPressed: () async {},
       icon: Icon(
         Icons.check_circle_outline,
       ));
+
+  Widget editButton() => IconButton(
+        onPressed: () async {
+          if (isLoading) return;
+
+          await Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => EditTaskPage()),
+          );
+        },
+        icon: Icon(Icons.edit_outlined),
+      );
 }

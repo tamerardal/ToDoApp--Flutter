@@ -30,7 +30,7 @@ class TaskFormWidget extends StatelessWidget {
               buildTitle(),
               SizedBox(height: 8),
               buildDescription(),
-              SizedBox(height: 16),
+              SizedBox(height: 8),
               buildTime(context)
             ],
           ),
@@ -76,16 +76,15 @@ class TaskFormWidget extends StatelessWidget {
         onPressed: () {
           DatePicker.showDateTimePicker(context,
               showTitleActions: true,
-              minTime: DateTime.now(), onChanged: (time) {
-            print('change $time in time zone ' +
-                time.timeZoneOffset.inHours.toString());
-          }, onConfirm: (time) {
-            print('confirm $time');
+              minTime: DateTime.now(),
+              maxTime: DateTime(2024, 12, 31), onChanged: (onChangedTime) {
+            print('change $onChangedTime in time zone ' +
+                onChangedTime.timeZoneOffset.inHours.toString());
           }, locale: LocaleType.tr);
         },
         child: Text(
           'Tarih ve Saat Seçiniz',
-          style: TextStyle(fontSize: 18),
+          style: TextStyle(fontSize: 18, color: Colors.grey.shade800),
         ),
       );
 }

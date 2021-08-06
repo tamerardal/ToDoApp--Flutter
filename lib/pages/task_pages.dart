@@ -52,7 +52,8 @@ class _TasksPageState extends State<TasksPage> {
               : tasks.isEmpty
                   ? Text(
                       'Burada hiçbir şey yok!',
-                      style: TextStyle(color: Colors.black, fontSize: 24),
+                      style:
+                          TextStyle(color: Colors.grey.shade600, fontSize: 20),
                     )
                   : buildNotes(),
         ),

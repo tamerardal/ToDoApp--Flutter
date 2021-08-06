@@ -84,6 +84,17 @@ CREATE TABLE $tableTask (
   //   );
   // }
 
+  Future<int> update(Task task) async {
+    final db = await instance.database;
+
+    return db.update(
+      tableTask,
+      task.toJson(),
+      where: '${TaskFields.id} = ?',
+      whereArgs: [task.id],
+    );
+  }
+
   Future<int> delete(int id) async {
     final db = await instance.database;
 

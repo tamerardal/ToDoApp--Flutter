@@ -47,7 +47,8 @@ class _EditTaskPageState extends State<EditTaskPage> {
             onChangedTitle: (title) => setState(() => this.title = title),
             onChangedDescription: (description) =>
                 setState(() => this.description = description),
-            onChangedTime: (time) => setState(() => this.time = time),
+            onChangedTime: (deliveryTime) =>
+                setState(() => this.time = deliveryTime),
           ),
         ),
       );
@@ -62,17 +63,23 @@ class _EditTaskPageState extends State<EditTaskPage> {
           onPrimary: Colors.white,
           primary: isFormValid ? Colors.green.shade300 : Colors.grey.shade700,
         ),
-        onPressed: addTaskPage,
-        child: Text('Save'),
+        onPressed: addorUpdateTaskPage,
+        child: Text('Kaydet'),
       ),
     );
   }
 
-  void addTaskPage() async {
+  void addorUpdateTaskPage() async {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      await addTask();
+      final isUpdating = widget.task != null;
+
+      if (isUpdating) {
+        await updateTask();
+      } else {
+        await addTask();
+      }
 
       Navigator.of(context).pop();
     }
@@ -82,10 +89,20 @@ class _EditTaskPageState extends State<EditTaskPage> {
     final task = Task(
       title: title,
       description: description,
-      deliveryTime: DateTime.now(),
+      deliveryTime: time,
       done: false,
     );
 
     await TasksDatabase.instance.create(task);
+  }
+
+  Future updateTask() async {
+    final task = widget.task!.copy(
+      title: title,
+      description: description,
+      deliveryTime: time,
+    );
+
+    await TasksDatabase.instance.update(task);
   }
 }
