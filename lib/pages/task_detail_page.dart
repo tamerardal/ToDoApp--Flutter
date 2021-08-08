@@ -7,10 +7,12 @@ import 'package:todo_application/pages/edit_task_page.dart';
 
 class TaskDetailPage extends StatefulWidget {
   final int taskId;
+  final Task? task;
 
   const TaskDetailPage({
     Key? key,
     required this.taskId,
+    this.task,
   }) : super(key: key);
 
   @override
@@ -20,10 +22,12 @@ class TaskDetailPage extends StatefulWidget {
 class _TaskDetailPageState extends State<TaskDetailPage> {
   late Task task;
   bool isLoading = false;
+  late bool done;
 
   @override
   void initState() {
     super.initState();
+    done = widget.task?.done ?? false;
 
     refreshTask();
   }
@@ -40,7 +44,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: Text(task.title),
-        actions: [editButton(), deleteButton(), completedButton()],
+        actions: [editButton(), deleteButton(), completeButton()],
       ),
       body: task.done
           ? Padding(
@@ -94,20 +98,22 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         },
       );
 
-  Widget completedButton() => IconButton(
-      onPressed: () async {},
-      icon: Icon(
-        Icons.check_circle_outline,
-      ));
-
   Widget editButton() => IconButton(
         onPressed: () async {
           if (isLoading) return;
 
           await Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => EditTaskPage()),
+            MaterialPageRoute(builder: (context) => EditTaskPage(task: task)),
           );
+          refreshTask();
         },
         icon: Icon(Icons.edit_outlined),
       );
+
+  Widget completeButton() => IconButton(
+      onPressed: () async {
+        await TasksDatabase.instance.complete(task);
+        Navigator.of(context).pop();
+      },
+      icon: Icon(Icons.check_circle_outline));
 }

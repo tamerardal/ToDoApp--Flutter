@@ -76,8 +76,7 @@ class TaskFormWidget extends StatelessWidget {
         onPressed: () {
           DatePicker.showDateTimePicker(context,
               showTitleActions: true,
-              minTime: DateTime.now(),
-              maxTime: DateTime(2024, 12, 31), onChanged: (onChangedTime) {
+              minTime: DateTime.now(), onChanged: (onChangedTime) {
             print('change $onChangedTime in time zone ' +
                 onChangedTime.timeZoneOffset.inHours.toString());
           }, locale: LocaleType.tr);

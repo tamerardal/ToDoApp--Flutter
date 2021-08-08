@@ -101,6 +101,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
       title: title,
       description: description,
       deliveryTime: time,
+      done: false,
     );
 
     await TasksDatabase.instance.update(task);

@@ -64,7 +64,7 @@ CREATE TABLE $tableTask (
   Future<List<Task>> readAllNotes() async {
     final db = await instance.database;
 
-    final orderBy = '${TaskFields.time} ASC';
+    final orderBy = '${TaskFields.done} ASC, ${TaskFields.time} DESC';
     // final result =
     //     await db.rawQuery('SELECT * FROM $tableNotes ORDER BY $orderBy');
 
@@ -73,18 +73,18 @@ CREATE TABLE $tableTask (
     return result.map((json) => Task.fromJson(json)).toList();
   }
 
-  // Future<int> update(Task task) async {
-  //   final db = await instance.database;
-
-  //   return db.update(
-  //     tableNotes,
-  //     note.toJson(),
-  //     where: '${NoteFields.id} = ?',
-  //     whereArgs: [note.id],
-  //   );
-  // }
-
   Future<int> update(Task task) async {
+    final db = await instance.database;
+
+    return db.update(
+      tableTask,
+      task.toJson(),
+      where: '${TaskFields.id} = ?',
+      whereArgs: [task.id],
+    );
+  }
+
+  Future<int> complete(Task task) async {
     final db = await instance.database;
 
     return db.update(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:todo_application/model/task.dart';
+import 'package:intl/intl.dart';
 
 final _lightColors = [
   Colors.amber.shade300,
@@ -24,7 +24,8 @@ class TaskCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = _lightColors[index % _lightColors.length];
-    final time = DateFormat.yMMMd().format(task.deliveryTime);
+    final time = DateFormat.yMMMMEEEEd('tr_TR').format(task.deliveryTime);
+    final hour = DateFormat.Hm().format(task.deliveryTime);
     final minHeight = getMinHeight(index);
 
     return task.done
@@ -38,8 +39,8 @@ class TaskCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    time,
-                    style: TextStyle(color: Colors.grey.shade700),
+                    time + ' ' + hour,
+                    style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
                   ),
                   SizedBox(height: 2),
                   Text(
@@ -72,10 +73,11 @@ class TaskCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    time,
+                    time + ' ' + hour,
                     style: TextStyle(
                       color: Colors.grey.shade700,
                       decoration: TextDecoration.lineThrough,
+                      fontSize: 12,
                     ),
                   ),
                   SizedBox(height: 2),
