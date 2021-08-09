@@ -24,8 +24,8 @@ class TaskCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = _lightColors[index % _lightColors.length];
-    final time = DateFormat.yMMMMEEEEd('tr_TR').format(task.deliveryTime);
-    final hour = DateFormat.Hm().format(task.deliveryTime);
+    final time = DateFormat.yMMMd('tr_TR').format(task.time);
+    final hour = DateFormat.Hm().format(task.time);
     final minHeight = getMinHeight(index);
 
     return task.done

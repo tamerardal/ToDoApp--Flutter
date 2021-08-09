@@ -70,15 +70,21 @@ class _TasksPageState extends State<TasksPage> {
                     )
                   : buildNotes(),
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.red[300],
-          child: Icon(Icons.add),
-          onPressed: () async {
-            await Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => EditTaskPage()),
-            );
-            refreshTasks();
-          },
+        floatingActionButton: Container(
+          height: 80,
+          width: 80,
+          child: FittedBox(
+            child: FloatingActionButton(
+              backgroundColor: Colors.red[300],
+              child: Icon(Icons.add),
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => EditTaskPage()),
+                );
+                refreshTasks();
+              },
+            ),
+          ),
         ),
       );
 

@@ -29,7 +29,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
 
     title = widget.task?.title ?? '';
     description = widget.task?.description ?? '';
-    time = widget.task?.deliveryTime ?? DateTime.now();
+    time = widget.task?.time ?? DateTime.now();
     done = widget.task?.done ?? false;
   }
 
@@ -52,8 +52,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
             onChangedTitle: (title) => setState(() => this.title = title),
             onChangedDescription: (description) =>
                 setState(() => this.description = description),
-            onChangedTime: (deliveryTime) =>
-                setState(() => this.time = deliveryTime),
+            onChangedTime: (time) => setState(() => this.time = time),
           ),
         ),
       );
@@ -69,7 +68,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
           primary: isFormValid ? Colors.green.shade300 : Colors.grey.shade700,
         ),
         onPressed: addorUpdateTaskPage,
-        child: Text('Kaydet'),
+        child: Text('KAYDET'),
       ),
     );
   }
@@ -94,7 +93,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
     final task = Task(
       title: title,
       description: description,
-      deliveryTime: time,
+      time: time,
       done: false,
     );
 
@@ -105,7 +104,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
     final task = widget.task!.copy(
       title: title,
       description: description,
-      deliveryTime: time,
+      time: time,
       done: false,
     );
 

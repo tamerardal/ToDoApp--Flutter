@@ -76,7 +76,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 padding: EdgeInsets.symmetric(vertical: 8),
                 children: [
                   Text(
-                    DateFormat.yMMMd().format(task.deliveryTime),
+                    DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
+                        ' ' +
+                        DateFormat.Hm().format(task.time),
                     style: TextStyle(color: Colors.black38),
                   ),
                   SizedBox(height: 8),
@@ -93,7 +95,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 padding: EdgeInsets.symmetric(vertical: 8),
                 children: [
                   Text(
-                    DateFormat.yMMMd().format(task.deliveryTime),
+                    DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
+                        ' ' +
+                        DateFormat.Hm().format(task.time),
                     style: TextStyle(
                       color: Colors.black38,
                       decoration: TextDecoration.lineThrough,
