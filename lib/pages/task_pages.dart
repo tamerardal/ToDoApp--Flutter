@@ -91,25 +91,16 @@ class _TasksPageState extends State<TasksPage> {
         crossAxisSpacing: 0.1,
         itemBuilder: (context, index) {
           final task = tasks[index];
-          return task.done
-              ? GestureDetector(
-                  onTap: () async {
-                    await Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              TaskDetailPage(taskId: task.id!)),
-                    );
-
-                    refreshTasks();
-                  },
-                  child: TaskCardWidget(task: task, index: index),
-                )
-              : GestureDetector(
-                  onDoubleTap: () async {
-                    await TasksDatabase.instance.delete(widget.taskId!);
-                    refreshTasks();
-                  },
-                  child: TaskCardWidget(task: task, index: index));
+          return GestureDetector(
+            onTap: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (context) => TaskDetailPage(taskId: task.id!)),
+              );
+              refreshTasks();
+            },
+            child: TaskCardWidget(task: task, index: index),
+          );
         },
       );
 }

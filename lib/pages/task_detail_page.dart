@@ -43,8 +43,31 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        elevation: 5,
+        toolbarHeight: 60,
         title: Text(task.title),
-        actions: [editButton(), deleteButton(), completeButton()],
+        //actions: [editButton(), deleteButton(), completeButton()],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.red.shade300,
+        child: task.done
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  deleteButton(),
+                  editButton(),
+                  completeButton(),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  deleteButton(),
+                ],
+              ),
       ),
       body: task.done
           ? Padding(
@@ -105,6 +128,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
           await Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => EditTaskPage(task: task)),
           );
+
           refreshTask();
         },
         icon: Icon(Icons.edit_outlined),
