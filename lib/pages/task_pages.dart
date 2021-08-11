@@ -30,6 +30,7 @@ class _TasksPageState extends State<TasksPage> {
     fontSize: 40,
     decoration: TextDecoration.lineThrough,
     decorationThickness: 1.5,
+    color: Colors.white,
   );
   final defaulStyle = GoogleFonts.architectsDaughter(
     fontSize: 24,
