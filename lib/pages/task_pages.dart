@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:intl/date_symbol_data_file.dart';
-// import 'package:intl/date_symbol_data_http_request.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:todo_application/db/tasks_database.dart';
 import 'package:todo_application/model/task.dart';
@@ -26,6 +26,14 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   late List<Task> tasks;
   bool isLoading = false;
+  final firstTitleStyle = GoogleFonts.lobster(
+    fontSize: 32,
+    decoration: TextDecoration.lineThrough,
+  );
+  final defaulStyle = GoogleFonts.architectsDaughter(
+    fontSize: 24,
+    fontWeight: FontWeight.w500,
+  );
 
   @override
   void initState() {
@@ -49,14 +57,11 @@ class _TasksPageState extends State<TasksPage> {
             borderRadius: BorderRadius.circular(12),
           ),
           elevation: 5,
-          toolbarHeight: 80,
+          toolbarHeight: 100,
           centerTitle: true,
           title: Text(
             "todo App",
-            style: TextStyle(
-              fontSize: 24,
-              color: Colors.white,
-            ),
+            style: firstTitleStyle,
           ),
         ),
         body: Center(
@@ -65,8 +70,7 @@ class _TasksPageState extends State<TasksPage> {
               : tasks.isEmpty
                   ? Text(
                       'Burada hiçbir şey yok!',
-                      style:
-                          TextStyle(color: Colors.grey.shade600, fontSize: 20),
+                      style: defaulStyle,
                     )
                   : buildNotes(),
         ),

@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+
+final titleStyle = GoogleFonts.staatliches(fontSize: 24);
+final descStyle1 = GoogleFonts.cabin(
+  fontSize: 22,
+  fontWeight: FontWeight.bold,
+);
 
 class TaskFormWidget extends StatelessWidget {
   final String? title;
@@ -59,6 +67,8 @@ class TaskFormWidget extends StatelessWidget {
 
   Widget buildDescription() => TextFormField(
         maxLines: 5,
+        textAlignVertical: TextAlignVertical.top,
+        textAlign: TextAlign.left,
         initialValue: description,
         style: TextStyle(color: Colors.black, fontSize: 18),
         decoration: InputDecoration(
@@ -67,23 +77,27 @@ class TaskFormWidget extends StatelessWidget {
           hintText: 'örn. Süt, mısır gevreği..',
           hintStyle: TextStyle(color: Colors.grey.shade600),
         ),
-        validator: (title) =>
-            title != null && title.isEmpty ? 'Açıklama boş geçilemez' : null,
+        //validator: (title) =>
+        //title != null && title.isEmpty ? 'Açıklama boş geçilemez' : null,
         onChanged: onChangedDescription,
       );
 
-  Widget buildTime(BuildContext context) => OutlinedButton(
-        onPressed: () {
-          DatePicker.showDateTimePicker(context,
+  Widget buildTime(BuildContext context) => Container(
+        width: 400,
+        child: OutlinedButton(
+          onPressed: () {
+            DatePicker.showDateTimePicker(
+              context,
               showTitleActions: true,
-              minTime: DateTime.now(), onChanged: (onChangedTime) {
-            print('change $onChangedTime in time zone ' +
-                onChangedTime.timeZoneOffset.inHours.toString());
-          }, locale: LocaleType.tr);
-        },
-        child: Text(
-          'Tarih ve Saat Seçiniz',
-          style: TextStyle(fontSize: 18, color: Colors.grey.shade800),
+              minTime: DateTime.now(),
+              onChanged: onChangedTime,
+              locale: LocaleType.tr,
+            );
+          },
+          child: Text(
+            'Tarih ve Saat Seçiniz',
+            style: TextStyle(fontSize: 18, color: Colors.grey.shade800),
+          ),
         ),
       );
 }

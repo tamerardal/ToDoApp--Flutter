@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_application/model/task.dart';
 import 'package:intl/intl.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 final _lightColors = [
   Colors.amber.shade300,
@@ -27,6 +28,18 @@ class TaskCardWidget extends StatelessWidget {
     final time = DateFormat.yMMMd('tr_TR').format(task.time);
     final hour = DateFormat.Hm().format(task.time);
     final minHeight = getMinHeight(index);
+    final titleStyle = GoogleFonts.indieFlower(
+      textStyle: TextStyle(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        decoration:
+            task.done ? TextDecoration.none : TextDecoration.lineThrough,
+      ),
+    );
+    final descStyle = GoogleFonts.indieFlower(
+      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      decoration: task.done ? TextDecoration.none : TextDecoration.lineThrough,
+    );
 
     return task.done
         ? Card(
@@ -45,19 +58,12 @@ class TaskCardWidget extends StatelessWidget {
                   SizedBox(height: 2),
                   Text(
                     task.title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: titleStyle,
                   ),
                   SizedBox(height: 4),
                   Text(
                     task.description,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
+                    style: descStyle,
                   ),
                 ],
               ),
@@ -83,21 +89,12 @@ class TaskCardWidget extends StatelessWidget {
                   SizedBox(height: 2),
                   Text(
                     task.title,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      decoration: TextDecoration.lineThrough,
-                    ),
+                    style: titleStyle,
                   ),
                   SizedBox(height: 4),
                   Text(
                     task.description,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
-                      decoration: TextDecoration.lineThrough,
-                    ),
+                    style: descStyle,
                   ),
                 ],
               ),

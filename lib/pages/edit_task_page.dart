@@ -58,7 +58,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
       );
 
   Widget buildButton() {
-    final isFormValid = title.isNotEmpty && description.isNotEmpty;
+    final isFormValid = title.isNotEmpty;
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),

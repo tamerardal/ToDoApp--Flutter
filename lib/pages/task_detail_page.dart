@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_application/db/tasks_database.dart';
 import 'package:todo_application/model/task.dart';
@@ -23,6 +26,15 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   late Task task;
   bool isLoading = false;
   late bool done;
+  final titleStyle = GoogleFonts.staatliches(fontSize: 24);
+  final descStyle1 = GoogleFonts.cabin(
+    fontSize: 22,
+    fontWeight: FontWeight.bold,
+  );
+  final descStyle2 = GoogleFonts.cabin(
+      fontSize: 22,
+      decoration: TextDecoration.lineThrough,
+      fontWeight: FontWeight.bold);
 
   @override
   void initState() {
@@ -48,7 +60,10 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         ),
         elevation: 5,
         toolbarHeight: 60,
-        title: Text(task.title),
+        title: Text(
+          task.title,
+          style: titleStyle,
+        ),
         //actions: [editButton(), deleteButton(), completeButton()],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -66,6 +81,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   deleteButton(),
+                  completeButton(),
                 ],
               ),
       ),
@@ -84,7 +100,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                   SizedBox(height: 8),
                   Text(
                     task.description,
-                    style: TextStyle(color: Colors.black87, fontSize: 24),
+                    style: descStyle1,
                   )
                 ],
               ),
@@ -106,18 +122,14 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                   SizedBox(height: 8),
                   Text(
                     task.description,
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 24,
-                      decoration: TextDecoration.lineThrough,
-                    ),
+                    style: descStyle2,
                   )
                 ],
               ),
             ));
 
   Widget deleteButton() => IconButton(
-        icon: Icon(Icons.delete),
+        icon: Icon(Icons.delete_rounded),
         onPressed: () async {
           await TasksDatabase.instance.delete(widget.taskId);
 
@@ -135,7 +147,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
 
           refreshTask();
         },
-        icon: Icon(Icons.edit_outlined),
+        icon: Icon(Icons.edit_rounded),
       );
 
   Widget completeButton() => IconButton(
@@ -143,5 +155,5 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         await TasksDatabase.instance.complete(task);
         Navigator.of(context).pop();
       },
-      icon: Icon(Icons.check_circle_outline));
+      icon: task.done ? Icon(Icons.check_rounded) : Icon(Icons.cancel_rounded));
 }
