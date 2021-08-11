@@ -30,7 +30,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   final titleStyle2 = GoogleFonts.staatliches(
     fontSize: 24,
     decoration: TextDecoration.lineThrough,
-    decorationThickness: 4,
+    decorationThickness: 2.5,
   );
   final descStyle1 = GoogleFonts.cabin(
     fontSize: 22,
@@ -39,7 +39,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   final descStyle2 = GoogleFonts.cabin(
     fontSize: 22,
     decoration: TextDecoration.lineThrough,
-    decorationThickness: 4,
+    decorationThickness: 2.5,
     fontWeight: FontWeight.bold,
   );
   final timeStyle1 = GoogleFonts.play(
@@ -54,7 +54,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
       fontSize: 14,
       fontWeight: FontWeight.w500,
       decoration: TextDecoration.lineThrough,
-      decorationThickness: 4,
+      decorationThickness: 2,
     ),
   );
 

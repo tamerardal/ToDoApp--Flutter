@@ -29,7 +29,7 @@ class _TasksPageState extends State<TasksPage> {
   final firstTitleStyle = GoogleFonts.lobster(
     fontSize: 40,
     decoration: TextDecoration.lineThrough,
-    decorationThickness: 2,
+    decorationThickness: 1.5,
   );
   final defaulStyle = GoogleFonts.architectsDaughter(
     fontSize: 24,

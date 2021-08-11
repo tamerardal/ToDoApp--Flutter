@@ -64,7 +64,7 @@ CREATE TABLE $tableTask (
   Future<List<Task>> readAllNotes() async {
     final db = await instance.database;
 
-    final orderBy = '${TaskFields.done} ASC, ${TaskFields.time} ASC';
+    final orderBy = '${TaskFields.done} ASC, ${TaskFields.id} DESC';
     // final result =
     //     await db.rawQuery('SELECT * FROM $tableNotes ORDER BY $orderBy');
 
