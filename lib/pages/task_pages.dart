@@ -27,7 +27,7 @@ class _TasksPageState extends State<TasksPage> {
   late List<Task> tasks;
   bool isLoading = false;
   final firstTitleStyle = GoogleFonts.lobster(
-    fontSize: 32,
+    fontSize: 40,
     decoration: TextDecoration.lineThrough,
   );
   final defaulStyle = GoogleFonts.architectsDaughter(

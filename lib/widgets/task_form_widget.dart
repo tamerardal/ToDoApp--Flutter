@@ -92,6 +92,7 @@ class TaskFormWidget extends StatelessWidget {
               minTime: DateTime.now(),
               onChanged: onChangedTime,
               locale: LocaleType.tr,
+              currentTime: null,
             );
           },
           child: Text(

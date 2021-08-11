@@ -28,17 +28,29 @@ class TaskCardWidget extends StatelessWidget {
     final time = DateFormat.yMMMd('tr_TR').format(task.time);
     final hour = DateFormat.Hm().format(task.time);
     final minHeight = getMinHeight(index);
-    final titleStyle = GoogleFonts.indieFlower(
+    final titleStyle = GoogleFonts.gochiHand(
       textStyle: TextStyle(
-        fontSize: 24,
-        fontWeight: FontWeight.bold,
+        fontSize: 28,
+        fontWeight: FontWeight.w500,
+        decoration:
+            task.done ? TextDecoration.none : TextDecoration.lineThrough,
+        color: Colors.black87,
+      ),
+    );
+    final descStyle = GoogleFonts.gochiHand(
+      textStyle: TextStyle(
+        fontSize: 20,
+      ),
+      decoration: task.done ? TextDecoration.none : TextDecoration.lineThrough,
+      color: Colors.black87,
+    );
+    final timeStyle = GoogleFonts.play(
+      textStyle: TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
         decoration:
             task.done ? TextDecoration.none : TextDecoration.lineThrough,
       ),
-    );
-    final descStyle = GoogleFonts.indieFlower(
-      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-      decoration: task.done ? TextDecoration.none : TextDecoration.lineThrough,
     );
 
     return task.done
@@ -53,7 +65,7 @@ class TaskCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     time + ' ' + hour,
-                    style: TextStyle(color: Colors.grey.shade700, fontSize: 12),
+                    style: timeStyle,
                   ),
                   SizedBox(height: 2),
                   Text(
@@ -80,11 +92,7 @@ class TaskCardWidget extends StatelessWidget {
                 children: [
                   Text(
                     time + ' ' + hour,
-                    style: TextStyle(
-                      color: Colors.grey.shade700,
-                      decoration: TextDecoration.lineThrough,
-                      fontSize: 12,
-                    ),
+                    style: timeStyle,
                   ),
                   SizedBox(height: 2),
                   Text(

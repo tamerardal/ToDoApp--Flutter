@@ -26,7 +26,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   late Task task;
   bool isLoading = false;
   late bool done;
-  final titleStyle = GoogleFonts.staatliches(fontSize: 24);
+  final titleStyle1 = GoogleFonts.staatliches(fontSize: 24);
+  final titleStyle2 = GoogleFonts.staatliches(
+      fontSize: 24, decoration: TextDecoration.lineThrough);
   final descStyle1 = GoogleFonts.cabin(
     fontSize: 22,
     fontWeight: FontWeight.bold,
@@ -35,6 +37,20 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
       fontSize: 22,
       decoration: TextDecoration.lineThrough,
       fontWeight: FontWeight.bold);
+  final timeStyle1 = GoogleFonts.play(
+    textStyle: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      decoration: TextDecoration.none,
+    ),
+  );
+  final timeStyle2 = GoogleFonts.play(
+    textStyle: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+      decoration: TextDecoration.lineThrough,
+    ),
+  );
 
   @override
   void initState() {
@@ -62,7 +78,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
         toolbarHeight: 60,
         title: Text(
           task.title,
-          style: titleStyle,
+          style: task.done ? titleStyle1 : titleStyle2,
         ),
         //actions: [editButton(), deleteButton(), completeButton()],
       ),
@@ -95,7 +111,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                     DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
                         ' ' +
                         DateFormat.Hm().format(task.time),
-                    style: TextStyle(color: Colors.black38),
+                    style: timeStyle1,
                   ),
                   SizedBox(height: 8),
                   Text(
@@ -114,10 +130,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                     DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
                         ' ' +
                         DateFormat.Hm().format(task.time),
-                    style: TextStyle(
-                      color: Colors.black38,
-                      decoration: TextDecoration.lineThrough,
-                    ),
+                    style: timeStyle2,
                   ),
                   SizedBox(height: 8),
                   Text(
