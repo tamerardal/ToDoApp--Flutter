@@ -69,7 +69,7 @@ class _TasksPageState extends State<TasksPage> {
               ? CircularProgressIndicator()
               : tasks.isEmpty
                   ? Text(
-                      'Burada hiçbir şey yok!',
+                      'Hiç notunuz yok, hemen ekleyin!',
                       style: defaulStyle,
                     )
                   : buildNotes(),
