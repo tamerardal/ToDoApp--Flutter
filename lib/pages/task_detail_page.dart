@@ -28,15 +28,20 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   late bool done;
   final titleStyle1 = GoogleFonts.staatliches(fontSize: 24);
   final titleStyle2 = GoogleFonts.staatliches(
-      fontSize: 24, decoration: TextDecoration.lineThrough);
+    fontSize: 24,
+    decoration: TextDecoration.lineThrough,
+    decorationThickness: 4,
+  );
   final descStyle1 = GoogleFonts.cabin(
     fontSize: 22,
     fontWeight: FontWeight.bold,
   );
   final descStyle2 = GoogleFonts.cabin(
-      fontSize: 22,
-      decoration: TextDecoration.lineThrough,
-      fontWeight: FontWeight.bold);
+    fontSize: 22,
+    decoration: TextDecoration.lineThrough,
+    decorationThickness: 4,
+    fontWeight: FontWeight.bold,
+  );
   final timeStyle1 = GoogleFonts.play(
     textStyle: TextStyle(
       fontSize: 14,
@@ -49,6 +54,7 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
       fontSize: 14,
       fontWeight: FontWeight.w500,
       decoration: TextDecoration.lineThrough,
+      decorationThickness: 4,
     ),
   );
 

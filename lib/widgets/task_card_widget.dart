@@ -31,17 +31,17 @@ class TaskCardWidget extends StatelessWidget {
     final titleStyle = GoogleFonts.gochiHand(
       textStyle: TextStyle(
         fontSize: 28,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w200,
         decoration:
             task.done ? TextDecoration.none : TextDecoration.lineThrough,
+        decorationThickness: 4,
         color: Colors.black87,
       ),
     );
     final descStyle = GoogleFonts.gochiHand(
-      textStyle: TextStyle(
-        fontSize: 20,
-      ),
+      textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w100),
       decoration: task.done ? TextDecoration.none : TextDecoration.lineThrough,
+      decorationThickness: 4,
       color: Colors.black87,
     );
     final timeStyle = GoogleFonts.play(
@@ -50,6 +50,7 @@ class TaskCardWidget extends StatelessWidget {
         fontWeight: FontWeight.w500,
         decoration:
             task.done ? TextDecoration.none : TextDecoration.lineThrough,
+        decorationThickness: 4,
       ),
     );
 
