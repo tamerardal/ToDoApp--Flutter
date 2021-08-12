@@ -26,7 +26,7 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   late List<Task> tasks;
   bool isLoading = false;
-  final firstTitleStyle = GoogleFonts.lobster(
+  final firstTitleStyle = GoogleFonts.sedgwickAveDisplay(
     fontSize: 40,
     decoration: TextDecoration.lineThrough,
     decorationThickness: 1.5,

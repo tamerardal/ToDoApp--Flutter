@@ -28,9 +28,9 @@ class TaskCardWidget extends StatelessWidget {
     final time = DateFormat.yMMMd('tr_TR').format(task.time);
     final hour = DateFormat.Hm().format(task.time);
     final minHeight = getMinHeight(index);
-    final titleStyle = GoogleFonts.architectsDaughter(
+    final titleStyle = GoogleFonts.swankyAndMooMoo(
       textStyle: TextStyle(
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: FontWeight.bold,
         decoration:
             task.done ? TextDecoration.none : TextDecoration.lineThrough,
@@ -38,8 +38,8 @@ class TaskCardWidget extends StatelessWidget {
         color: Colors.black87,
       ),
     );
-    final descStyle = GoogleFonts.architectsDaughter(
-      textStyle: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+    final descStyle = GoogleFonts.swankyAndMooMoo(
+      textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       decoration: task.done ? TextDecoration.none : TextDecoration.lineThrough,
       decorationThickness: 1.4,
       color: Colors.black87,
