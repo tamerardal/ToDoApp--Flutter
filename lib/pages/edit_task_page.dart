@@ -1,8 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:todo_application/db/tasks_database.dart';
+import 'package:todo_application/main.dart';
 import 'package:todo_application/model/task.dart';
 import 'package:todo_application/widgets/task_form_widget.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:todo_application/pages/task_detail_page.dart';
 
 class EditTaskPage extends StatefulWidget {
   final Task? task;
@@ -84,7 +90,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
       } else {
         await addTask();
       }
-
+      //scheduleNotification();
       Navigator.of(context).pop();
     }
   }

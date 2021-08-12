@@ -4,10 +4,10 @@ import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final _lightColors = [
-  Colors.amber.shade300,
-  Colors.lightGreen.shade300,
-  Colors.lightBlue.shade300,
-  Colors.orange.shade300,
+  Colors.amber.shade200,
+  Colors.lightGreen.shade200,
+  Colors.lightBlue.shade200,
+  Colors.orange.shade200,
   Colors.pinkAccent.shade100,
   Colors.tealAccent.shade100
 ];

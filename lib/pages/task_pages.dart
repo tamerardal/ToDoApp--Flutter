@@ -1,13 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:todo_application/db/tasks_database.dart';
+import 'package:todo_application/helper/notification_helper.dart';
 import 'package:todo_application/model/task.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:todo_application/pages/edit_task_page.dart';
 import 'package:todo_application/widgets/task_card_widget.dart';
 import 'task_detail_page.dart';
+import 'package:timezone/timezone.dart' as tz;
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class TasksPage extends StatefulWidget {
   final int? taskId;
@@ -26,15 +31,18 @@ class TasksPage extends StatefulWidget {
 class _TasksPageState extends State<TasksPage> {
   late List<Task> tasks;
   bool isLoading = false;
-  final firstTitleStyle = GoogleFonts.sedgwickAveDisplay(
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+  final firstTitleStyle = GoogleFonts.lobster(
     fontSize: 40,
     decoration: TextDecoration.lineThrough,
     decorationThickness: 1.5,
     color: Colors.white,
   );
-  final defaulStyle = GoogleFonts.architectsDaughter(
+  final defaulStyle = GoogleFonts.swankyAndMooMoo(
     fontSize: 24,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w700,
+    color: Colors.grey[600],
   );
 
   @override
@@ -42,6 +50,8 @@ class _TasksPageState extends State<TasksPage> {
     super.initState();
     refreshTasks();
     initializeDateFormatting('tr_TR', null);
+
+    super.initState();
   }
 
   Future refreshTasks() async {
@@ -70,9 +80,11 @@ class _TasksPageState extends State<TasksPage> {
           child: isLoading
               ? CircularProgressIndicator()
               : tasks.isEmpty
-                  ? Text(
-                      'Hiç notunuz yok, hemen ekleyin!',
-                      style: defaulStyle,
+                  ? Center(
+                      child: Text(
+                        'Hiç göreviniz yok, hemen ekleyin!',
+                        style: defaulStyle,
+                      ),
                     )
                   : buildNotes(),
         ),
@@ -95,7 +107,7 @@ class _TasksPageState extends State<TasksPage> {
       );
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
-        padding: EdgeInsets.all(4),
+        padding: EdgeInsets.all(1),
         itemCount: tasks.length,
         staggeredTileBuilder: (index) => StaggeredTile.fit(2),
         crossAxisCount: 4,
