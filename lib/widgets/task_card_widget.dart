@@ -24,7 +24,7 @@ class TaskCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _lightColors[index % _lightColors.length];
+    final color = _lightColors[task.id! % _lightColors.length];
     final time = DateFormat.yMMMd('tr_TR').format(task.time);
     final hour = DateFormat.Hm().format(task.time);
     final minHeight = getMinHeight(index);
@@ -56,7 +56,11 @@ class TaskCardWidget extends StatelessWidget {
 
     return task.done
         ? Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(1),
+            ),
             color: color,
+            elevation: 4,
             child: Container(
               constraints: BoxConstraints(minHeight: minHeight),
               padding: EdgeInsets.all(8),
@@ -84,6 +88,10 @@ class TaskCardWidget extends StatelessWidget {
           )
         : Card(
             color: color,
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(1),
+            ),
             child: Container(
               constraints: BoxConstraints(minHeight: minHeight),
               padding: EdgeInsets.all(8),

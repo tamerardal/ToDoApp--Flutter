@@ -66,7 +66,7 @@ class _TasksPageState extends State<TasksPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(8),
           ),
           elevation: 5,
           toolbarHeight: 100,
@@ -93,6 +93,7 @@ class _TasksPageState extends State<TasksPage> {
           width: 80,
           child: FittedBox(
             child: FloatingActionButton(
+              elevation: 20,
               backgroundColor: Colors.red[300],
               child: Icon(Icons.add),
               onPressed: () async {
@@ -107,7 +108,7 @@ class _TasksPageState extends State<TasksPage> {
       );
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
-        padding: EdgeInsets.all(1),
+        padding: EdgeInsets.fromLTRB(4, 0.5, 4, 0.5),
         itemCount: tasks.length,
         staggeredTileBuilder: (index) => StaggeredTile.fit(2),
         crossAxisCount: 4,
@@ -119,7 +120,10 @@ class _TasksPageState extends State<TasksPage> {
             onTap: () async {
               await Navigator.of(context).push(
                 MaterialPageRoute(
-                    builder: (context) => TaskDetailPage(taskId: task.id!)),
+                    builder: (context) => TaskDetailPage(
+                          taskId: task.id!,
+                          index: index,
+                        )),
               );
               refreshTasks();
             },

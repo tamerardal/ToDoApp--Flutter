@@ -55,10 +55,10 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.white,
           scaffoldBackgroundColor: Colors.white,
           appBarTheme: AppBarTheme(
-            backgroundColor: Colors.red[300],
-            elevation: 2,
-            iconTheme: IconThemeData(color: Colors.white),
-          ),
+              backgroundColor: Colors.red[300],
+              elevation: 2,
+              iconTheme: IconThemeData(color: Colors.white),
+              titleTextStyle: TextStyle(color: Colors.white)),
         ),
         home: TasksPage(),
       );

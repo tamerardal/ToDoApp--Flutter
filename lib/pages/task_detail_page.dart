@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -8,21 +7,29 @@ import 'package:intl/intl.dart';
 import 'package:todo_application/db/tasks_database.dart';
 import 'package:todo_application/model/task.dart';
 import 'package:todo_application/pages/edit_task_page.dart';
-
 import '../main.dart';
-
 import 'package:timezone/timezone.dart' as tz;
 
 late Task task;
+final _lightColors = [
+  Colors.amber.shade200,
+  Colors.lightGreen.shade200,
+  Colors.lightBlue.shade200,
+  Colors.orange.shade200,
+  Colors.pinkAccent.shade100,
+  Colors.tealAccent.shade100,
+];
 
 class TaskDetailPage extends StatefulWidget {
   final int taskId;
   final Task? task;
+  final int index;
 
   const TaskDetailPage({
     Key? key,
     required this.taskId,
     this.task,
+    required this.index,
   }) : super(key: key);
 
   @override
@@ -33,13 +40,22 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   late Task task;
   bool isLoading = false;
   late bool done;
-  final titleStyle1 =
-      GoogleFonts.staatliches(fontSize: 24, color: Colors.white);
-  final titleStyle2 = GoogleFonts.staatliches(
+  final appbarStyle1 = GoogleFonts.swankyAndMooMoo(
     fontSize: 24,
     color: Colors.white,
+    fontWeight: FontWeight.bold,
+  );
+  final titleStyle1 = GoogleFonts.swankyAndMooMoo(
+    fontSize: 24,
+    color: Colors.black87,
+    fontWeight: FontWeight.bold,
+  );
+  final titleStyle2 = GoogleFonts.swankyAndMooMoo(
+    fontSize: 24,
+    color: Colors.black87,
     decoration: TextDecoration.lineThrough,
-    decorationThickness: 2.5,
+    decorationThickness: 1.4,
+    fontWeight: FontWeight.bold,
   );
   final descStyle1 = GoogleFonts.lato(
     fontSize: 22,
@@ -67,6 +83,21 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     ),
   );
 
+  double getMinHeight(int index) {
+    switch (index % 4) {
+      case 0:
+        return 100;
+      case 1:
+        return 125;
+      case 2:
+        return 150;
+      case 3:
+        return 100;
+      default:
+        return 125;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -84,77 +115,124 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+  Widget build(BuildContext context) {
+    final color = _lightColors[task.id! % _lightColors.length];
+
+    return Scaffold(
+        appBar: AppBar(
+          //backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+          elevation: 5,
+          toolbarHeight: 60,
+          title: Text(
+            'Geri dön',
+            style: appbarStyle1,
+          ),
+          //actions: [editButton(), deleteButton(), completeButton()],
         ),
-        elevation: 5,
-        toolbarHeight: 60,
-        title: Text(
-          task.title,
-          style: task.done ? titleStyle1 : titleStyle2,
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.red.shade300,
+          child: task.done
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    deleteButton(),
+                    editButton(),
+                    completeButton(),
+                  ],
+                )
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    deleteButton(),
+                    completeButton(),
+                  ],
+                ),
         ),
-        //actions: [editButton(), deleteButton(), completeButton()],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.red.shade300,
-        child: task.done
-            ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  deleteButton(),
-                  editButton(),
-                  completeButton(),
-                ],
+        body: task.done
+            ? Padding(
+                padding: EdgeInsets.fromLTRB(4, 2, 4, 2),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  color: color,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Container(
+                      width: 400,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
+                                ' ' +
+                                DateFormat.Hm().format(task.time),
+                            style: timeStyle1,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            task.title,
+                            style: titleStyle1,
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            task.description,
+                            style: descStyle1,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  deleteButton(),
-                  completeButton(),
-                ],
-              ),
-      ),
-      body: task.done
-          ? Padding(
-              padding: EdgeInsets.all(12),
-              child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                children: [
-                  Text(
-                    DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
-                        ' ' +
-                        DateFormat.Hm().format(task.time),
-                    style: timeStyle1,
+            : Padding(
+                padding: EdgeInsets.all(4),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    task.description,
-                    style: descStyle1,
-                  )
-                ],
-              ),
-            )
-          : Padding(
-              padding: EdgeInsets.all(12),
-              child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                children: [
-                  Text(
-                    DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
-                        ' ' +
-                        DateFormat.Hm().format(task.time),
-                    style: timeStyle2,
+                  color: color,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8),
+                    child: Container(
+                      width: 400,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            DateFormat.yMMMMEEEEd('tr_TR').format(task.time) +
+                                ' ' +
+                                DateFormat.Hm().format(task.time),
+                            style: timeStyle2,
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            task.title,
+                            style: titleStyle2,
+                          ),
+                          SizedBox(height: 8),
+                          Text(
+                            task.description,
+                            style: descStyle2,
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 8),
-                  Text(
-                    task.description,
-                    style: descStyle2,
-                  )
-                ],
-              ),
-            ));
+                ),
+              ));
+  }
 
   Widget deleteButton() => IconButton(
         icon: Icon(
@@ -200,37 +278,32 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
             ));
 }
 
-// void scheduleNotification() async {
-//   var scheduleNotificationDateTime = DateTime.now().add(Duration(minutes: -30));
+void scheduleNotification() async {
+  var scheduleNotificationDateTime =
+      tz.TZDateTime.now(tz.local).add(Duration(seconds: -5));
 
-//   var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-//     'task_notif',
-//     'task_notif',
-//     'Channel for Task notification',
-//     icon: 'app_icon',
-//     largeIcon: DrawableResourceAndroidBitmap('app_icon'),
-//   );
+  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+    'task_notif',
+    'task_notif',
+    'Channel for Task notification',
+    icon: 'app_icon',
+    largeIcon: DrawableResourceAndroidBitmap('app_icon'),
+  );
 
-//   var iOSPlatformChannelSpecifics = IOSNotificationDetails(
-//     presentAlert: true,
-//     presentBadge: true,
-//     presentSound: true,
-//   );
+  var iOSPlatformChannelSpecifics = IOSNotificationDetails(
+    presentAlert: true,
+    presentBadge: true,
+    presentSound: true,
+  );
 
-//   var platformChannelSpecifics = NotificationDetails(
-//     android: androidPlatformChannelSpecifics,
-//     iOS: iOSPlatformChannelSpecifics,
-//   );
+  var platformChannelSpecifics = NotificationDetails(
+    android: androidPlatformChannelSpecifics,
+    iOS: iOSPlatformChannelSpecifics,
+  );
 
-//   await flnp.zonedSchedule(
-//       0,
-//       'scheduled title',
-//       'scheduled body',
-//       tz.TZDateTime.local(task.time.second).add(Duration(seconds: 5)),
-//       const NotificationDetails(
-//           android: AndroidNotificationDetails('your channel id',
-//               'your channel name', 'your channel description')),
-//       androidAllowWhileIdle: true,
-//       uiLocalNotificationDateInterpretation:
-//           UILocalNotificationDateInterpretation.absoluteTime);
-// }
+  await flnp.zonedSchedule(0, 'scheduled title', 'scheduled body',
+      scheduleNotificationDateTime, platformChannelSpecifics,
+      androidAllowWhileIdle: true,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime);
+}
