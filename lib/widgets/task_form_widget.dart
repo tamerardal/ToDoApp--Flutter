@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
 final titleStyle = GoogleFonts.staatliches(fontSize: 24);
 final descStyle1 = GoogleFonts.cabin(

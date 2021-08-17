@@ -2,10 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
-
 import 'pages/task_pages.dart';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 FlutterLocalNotificationsPlugin flnp = new FlutterLocalNotificationsPlugin();
@@ -39,7 +36,6 @@ Future main() async {
     yield LicenseEntryWithLineBreaks(['google_fonts'], license);
   });
 
-  final String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
   runApp(MyApp());
 }
 

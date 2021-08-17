@@ -1,14 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:todo_application/db/tasks_database.dart';
-import 'package:todo_application/main.dart';
 import 'package:todo_application/model/task.dart';
 import 'package:todo_application/widgets/task_form_widget.dart';
-import 'package:timezone/data/latest.dart' as tz;
+
+import '../main.dart';
 import 'package:timezone/timezone.dart' as tz;
-import 'package:todo_application/pages/task_detail_page.dart';
 
 class EditTaskPage extends StatefulWidget {
   final Task? task;
@@ -90,7 +88,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
       } else {
         await addTask();
       }
-      //scheduleNotification();
+
       Navigator.of(context).pop();
     }
   }
@@ -104,6 +102,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
     );
 
     await TasksDatabase.instance.create(task);
+    scheduleNotification(task);
   }
 
   Future updateTask() async {
@@ -115,5 +114,41 @@ class _EditTaskPageState extends State<EditTaskPage> {
     );
 
     await TasksDatabase.instance.update(task);
+  }
+
+  void scheduleNotification(Task? task) async {
+    var scheduleNotificationDateTime = tz.TZDateTime.utc(
+      task!.time.year,
+      task.time.month,
+      task.time.day,
+      task.time.hour,
+      task.time.minute,
+      task.time.second,
+    ).add(Duration(seconds: -30));
+
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'task_notif',
+      'task_notif',
+      'Channel for Task notification',
+      icon: 'app_icon',
+      largeIcon: DrawableResourceAndroidBitmap('app_icon'),
+    );
+
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails(
+      presentAlert: true,
+      presentBadge: true,
+      presentSound: true,
+    );
+
+    var platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+      iOS: iOSPlatformChannelSpecifics,
+    );
+
+    await flnp.zonedSchedule(0, 'Yaklaşan bir göreviniz var.', ' ',
+        scheduleNotificationDateTime, platformChannelSpecifics,
+        androidAllowWhileIdle: true,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime);
   }
 }

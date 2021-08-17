@@ -1,16 +1,12 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_application/db/tasks_database.dart';
 import 'package:todo_application/model/task.dart';
 import 'package:todo_application/pages/edit_task_page.dart';
-import '../main.dart';
-import 'package:timezone/timezone.dart' as tz;
 
-late Task task;
 final _lightColors = [
   Colors.amber.shade200,
   Colors.lightGreen.shade200,
@@ -46,25 +42,30 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     fontWeight: FontWeight.bold,
   );
   final titleStyle1 = GoogleFonts.swankyAndMooMoo(
-    fontSize: 24,
+    fontSize: 30,
     color: Colors.black87,
     fontWeight: FontWeight.bold,
   );
   final titleStyle2 = GoogleFonts.swankyAndMooMoo(
-    fontSize: 24,
+    fontSize: 30,
     color: Colors.black87,
     decoration: TextDecoration.lineThrough,
     decorationThickness: 1.4,
     fontWeight: FontWeight.bold,
   );
-  final descStyle1 = GoogleFonts.lato(
-    fontSize: 22,
-    fontWeight: FontWeight.bold,
+  final descStyle = GoogleFonts.swankyAndMooMoo(
+    textStyle: TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.bold,
+    ),
+    decoration: TextDecoration.none,
+    decorationThickness: 1.4,
+    color: Colors.black87,
   );
-  final descStyle2 = GoogleFonts.lato(
-    fontSize: 22,
+  final descStyle2 = GoogleFonts.swankyAndMooMoo(
+    fontSize: 24,
     decoration: TextDecoration.lineThrough,
-    decorationThickness: 1.5,
+    decorationThickness: 1.4,
     fontWeight: FontWeight.bold,
   );
   final timeStyle1 = GoogleFonts.play(
@@ -119,40 +120,41 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
     final color = _lightColors[task.id! % _lightColors.length];
 
     return Scaffold(
-        appBar: AppBar(
-          //backgroundColor: color,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          elevation: 5,
-          toolbarHeight: 60,
-          title: Text(
-            'Geri dön',
-            style: appbarStyle1,
-          ),
-          //actions: [editButton(), deleteButton(), completeButton()],
+      appBar: AppBar(
+        //backgroundColor: color,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.red.shade300,
-          child: task.done
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    deleteButton(),
-                    editButton(),
-                    completeButton(),
-                  ],
-                )
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    deleteButton(),
-                    completeButton(),
-                  ],
-                ),
+        elevation: 5,
+        toolbarHeight: 60,
+        title: Text(
+          'Geri dön',
+          style: appbarStyle1,
         ),
-        body: task.done
-            ? Padding(
+        //actions: [editButton(), deleteButton(), completeButton()],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.red.shade300,
+        child: task.done
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  deleteButton(),
+                  editButton(),
+                  completeButton(),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  deleteButton(),
+                  completeButton(),
+                ],
+              ),
+      ),
+      body: task.done
+          ? SingleChildScrollView(
+              child: Padding(
                 padding: EdgeInsets.fromLTRB(4, 2, 4, 2),
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -184,15 +186,17 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                           SizedBox(height: 8),
                           Text(
                             task.description,
-                            style: descStyle1,
+                            style: descStyle,
                           )
                         ],
                       ),
                     ),
                   ),
                 ),
-              )
-            : Padding(
+              ),
+            )
+          : SingleChildScrollView(
+              child: Padding(
                 padding: EdgeInsets.all(4),
                 child: Card(
                   shape: RoundedRectangleBorder(
@@ -231,7 +235,9 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
                     ),
                   ),
                 ),
-              ));
+              ),
+            ),
+    );
   }
 
   Widget deleteButton() => IconButton(
@@ -276,34 +282,4 @@ class _TaskDetailPageState extends State<TaskDetailPage> {
               Icons.cancel_rounded,
               color: Colors.white,
             ));
-}
-
-void scheduleNotification() async {
-  var scheduleNotificationDateTime =
-      tz.TZDateTime.now(tz.local).add(Duration(seconds: -5));
-
-  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-    'task_notif',
-    'task_notif',
-    'Channel for Task notification',
-    icon: 'app_icon',
-    largeIcon: DrawableResourceAndroidBitmap('app_icon'),
-  );
-
-  var iOSPlatformChannelSpecifics = IOSNotificationDetails(
-    presentAlert: true,
-    presentBadge: true,
-    presentSound: true,
-  );
-
-  var platformChannelSpecifics = NotificationDetails(
-    android: androidPlatformChannelSpecifics,
-    iOS: iOSPlatformChannelSpecifics,
-  );
-
-  await flnp.zonedSchedule(0, 'scheduled title', 'scheduled body',
-      scheduleNotificationDateTime, platformChannelSpecifics,
-      androidAllowWhileIdle: true,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime);
 }

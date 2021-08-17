@@ -4,15 +4,11 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:todo_application/db/tasks_database.dart';
-import 'package:todo_application/helper/notification_helper.dart';
 import 'package:todo_application/model/task.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:todo_application/pages/edit_task_page.dart';
 import 'package:todo_application/widgets/task_card_widget.dart';
 import 'task_detail_page.dart';
-import 'package:timezone/timezone.dart' as tz;
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class TasksPage extends StatefulWidget {
   final int? taskId;
@@ -108,7 +104,7 @@ class _TasksPageState extends State<TasksPage> {
       );
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
-        padding: EdgeInsets.fromLTRB(4, 0.5, 4, 0.5),
+        padding: EdgeInsets.only(top: 0.5, left: 2, right: 2),
         itemCount: tasks.length,
         staggeredTileBuilder: (index) => StaggeredTile.fit(2),
         crossAxisCount: 4,

@@ -27,7 +27,7 @@ class TaskCardWidget extends StatelessWidget {
     final color = _lightColors[task.id! % _lightColors.length];
     final time = DateFormat.yMMMd('tr_TR').format(task.time);
     final hour = DateFormat.Hm().format(task.time);
-    final minHeight = getMinHeight(index);
+    //final minHeight = getMinHeight(index);
     final titleStyle = GoogleFonts.swankyAndMooMoo(
       textStyle: TextStyle(
         fontSize: 26,
@@ -54,84 +54,86 @@ class TaskCardWidget extends StatelessWidget {
       ),
     );
 
-    return task.done
-        ? Card(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(1),
-            ),
-            color: color,
-            elevation: 4,
-            child: Container(
-              constraints: BoxConstraints(minHeight: minHeight),
-              padding: EdgeInsets.all(8),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    time + ' ' + hour,
-                    style: timeStyle,
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    task.title,
-                    style: titleStyle,
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    task.description,
-                    style: descStyle,
-                  ),
-                ],
+    return SingleChildScrollView(
+      child: task.done
+          ? Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(1),
+              ),
+              color: color,
+              elevation: 4,
+              child: Container(
+                //constraints: BoxConstraints(minHeight: minHeight),
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      time + ' ' + hour,
+                      style: timeStyle,
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      task.title,
+                      style: titleStyle,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      task.description,
+                      style: descStyle,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          : Card(
+              color: color,
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(1),
+              ),
+              child: Container(
+                //constraints: BoxConstraints(minHeight: minHeight),
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      time + ' ' + hour,
+                      style: timeStyle,
+                    ),
+                    SizedBox(height: 2),
+                    Text(
+                      task.title,
+                      style: titleStyle,
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      task.description,
+                      style: descStyle,
+                    ),
+                  ],
+                ),
               ),
             ),
-          )
-        : Card(
-            color: color,
-            elevation: 4,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(1),
-            ),
-            child: Container(
-              constraints: BoxConstraints(minHeight: minHeight),
-              padding: EdgeInsets.all(8),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    time + ' ' + hour,
-                    style: timeStyle,
-                  ),
-                  SizedBox(height: 2),
-                  Text(
-                    task.title,
-                    style: titleStyle,
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    task.description,
-                    style: descStyle,
-                  ),
-                ],
-              ),
-            ),
-          );
+    );
   }
 
-  /// To return different height for different widgets
-  double getMinHeight(int index) {
-    switch (index % 4) {
-      case 0:
-        return 100;
-      case 1:
-        return 125;
-      case 2:
-        return 150;
-      case 3:
-        return 100;
-      default:
-        return 125;
-    }
-  }
+  // /// To return different height for different widgets
+  // double getMinHeight(int index) {
+  //   switch (index % 4) {
+  //     case 0:
+  //       return 100;
+  //     case 1:
+  //       return 125;
+  //     case 2:
+  //       return 150;
+  //     case 3:
+  //       return 100;
+  //     default:
+  //       return 125;
+  //   }
+  // }
 }
