@@ -124,7 +124,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
       task.time.hour,
       task.time.minute,
       task.time.second,
-    ).add(Duration(seconds: -30));
+    ).add(Duration(minutes: -10));
 
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'task_notif',
